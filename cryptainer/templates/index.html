@@ -1,0 +1,15 @@
+<html>
+  <h1>{{user}}'s Folders</h1>
+  {% for f in folders %}
+  <a href="{{f.name}}">
+    <span>{{f.name}}</span>
+    <span>
+      {% if f.is_public %}
+        [PUBLIC]
+      {% else %}
+        [PRIVATE]
+      {% endif %}
+    </span><br>
+  </a>
+  {% endfor %}
+</html>
