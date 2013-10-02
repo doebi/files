@@ -29,7 +29,11 @@ def index(request):
 
 
 def folder(request, name):
-    if request.user.is_authenticated():
+    try:
+        folder = Folder.objects.get(name=name)
+    except Folder.DoesNotExist:
+        raise Http404
+    if request.user.is_authenticated() or folder.is_public:
         try:
             folder = Folder.objects.get(name=name)
         except Folder.DoesNotExist:
