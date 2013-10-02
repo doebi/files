@@ -8,4 +8,3 @@ class FolderAdmin(admin.ModelAdmin):
     inlines = [FilesInline]
 
 admin.site.register(Folder, FolderAdmin)
-admin.site.register(File)

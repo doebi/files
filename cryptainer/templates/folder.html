@@ -1,6 +1,21 @@
 <html>
-  <h1>{{title}}</h1>
-  {% for f in files %}
-  <a href="{{f.name}}">{{f.data}}</a><br>
-  {% endfor %}
+  <head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container" style="width:500px">
+      <div style="margin-top:30px" class="panel panel-default">
+        <div class="panel-heading"><h4>{{title}}</h4></div>
+        <ul class="list-group">
+          {% for f in files %}
+          <li class="list-group-item clearfix">
+            <span>{{f.data}}</span>
+            <a class="btn btn-primary pull-right" href="{{f.name}}">Donwload</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </body>
 </html>

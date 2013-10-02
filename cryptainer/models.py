@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 def getPath(f, n):
-    return "storage/%s/%s" % (f.folder.name, n)
+    return "%s/%s" % (f.folder.name, n)
 
 
 class Folder(models.Model):
