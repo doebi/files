@@ -21,6 +21,7 @@ datatypes = {
         'bmp': 'image/bmp',
         'bz': 'application/x-bzip',
         'bz2': 'application/x-bzip2',
+        'mp4': 'video/mpeg4',
         }
 
 def generateHash(n):
@@ -103,7 +104,7 @@ def get(request, folder, name):
             f = File.objects.get(folder=folder, name=name)
         except File.DoesNotExist:
             raise Http404
-        filename = os.path.basename(unicode(f.data))
+        filename = os.path.basename(unicode(f.data)).replace(' ', '_')
         temp = filename.split('.')
         dtype = datatypes.get(temp[-1])
         if dtype is None:
