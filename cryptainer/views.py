@@ -1,5 +1,6 @@
 import os
 import random
+import Image
 from django.http import Http404, HttpResponse
 from django.contrib.auth import authenticate
 from django.core.context_processors import csrf
@@ -66,6 +67,47 @@ def token(request):
     c.update(csrf(request))
     return HttpResponse(c['csrf_token'])
 
+def hasPreview(f, folder):
+    dt = str(f.data).split('.')[-1]
+    filename = os.path.basename(u'tn_' + unicode(f.data)).replace(' ', '_')
+    imageTypes = ['jpg', 'jpeg', 'bmp', 'png']
+    if dt in imageTypes:
+        src = '/var/files/' + folder + '/'
+        thumbnail = 'tn_' + filename.replace(' ', '_')
+        try:
+            with open(src + thumbnail):
+                pass
+        except IOError:
+            img = Image.open(src + filename)
+            img.thumbnail((380, 380))
+            img.save('/var/files/' + folder + '/' + thumbnail)
+        return True
+    else:
+        return False
+
+def thumbnail(request, folder, name):
+    try:
+        folder = Folder.objects.get(name=folder)
+    except Folder.DoesNotExist:
+        raise Http404
+    if request.user.is_authenticated() or folder.is_public:
+        try:
+            f = File.objects.get(folder=folder, name=name)
+        except File.DoesNotExist:
+            raise Http404
+        filename = os.path.basename(unicode(f.data)).replace(' ', '_')
+        temp = filename.split('.')
+        dtype = datatypes.get(temp[-1])
+        if dtype is None:
+            dtype = 'text/plain'
+        with open('/var/files/' + folder.name + '/tn_' + filename) as f:
+            thumbnail = f.read()
+        response = HttpResponse(thumbnail, content_type=dtype)
+        #response['Content-Disposition'] = "attachment; filename=%s" %filename
+        return response
+    else:
+        raise PermissionDenied
+
 
 def folder(request, name):
     try:
@@ -83,6 +125,7 @@ def folder(request, name):
         else:
             for f in files:
                 f.data = os.path.basename(unicode(f.data))
+                #f.hasPreview = hasPreview(f, name)
             data = {
                     'user': request.user,
                     'title': folder.title,

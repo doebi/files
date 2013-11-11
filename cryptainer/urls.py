@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^upload/$', views.upload, name='upload'),
     url(r'^(?P<name>\w+)/$', views.folder, name='folder'),
     url(r'^(?P<folder>\w+)/(?P<name>\w+)/$', views.get, name='get'),
+    url(r'^(?P<folder>\w+)/(?P<name>\w+)/tn$', views.thumbnail, name='thumbnail'),
 )

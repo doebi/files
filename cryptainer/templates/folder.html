@@ -10,7 +10,11 @@
         <ul class="list-group">
           {% for f in files %}
           <li class="list-group-item clearfix">
-            <span>{{f.data}}</span>
+            {% if f.hasPreview %}
+                <img width="340" src="{{f.name}}/tn">
+            {% else %}
+                <span>{{f.data}}</span>
+            {% endif %}
             <a class="btn btn-primary pull-right" href="{{f.name}}">Download</a>
           </li>
           {% endfor %}
