@@ -1,25 +1,42 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  </head>
-  <body>
-    <div class="container" style="width:500px">
-      <div style="margin-top:30px" class="panel panel-default">
-        <div class="panel-heading"><h4>{{title}}</h4></div>
-        <ul class="list-group">
-          {% for f in files %}
-          <li class="list-group-item clearfix">
-            {% if f.hasPreview %}
-                <img width="340" src="{{f.name}}/tn">
-            {% else %}
-                <span>{{f.data}}</span>
-            {% endif %}
-            <a class="btn btn-primary pull-right" href="{{f.name}}">Download</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </body>
+    <head>
+        <title>files.doebi.at - {{title}}</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <style type="text/css" media="screen">
+            .badge-downloads{
+                background-color: #FFF;
+                color: #428BCA;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container" style="width:500px">
+            <div style="margin-top:30px" class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>
+                        <i class="fa fa-folder-open"></i>
+                        {{title}}
+                        <a class="pull-right btn btn-default" href="../">
+                            <i class="fa fa-level-up"></i>
+                        </a>
+                    </h4>
+                </div>
+                <ul class="list-group">
+                    {% for f in files %}
+                    <li class="list-group-item clearfix">
+                    <i class="fa fa-file"></i>
+                    <span>{{f.data}}</span>
+                    <a class="btn btn-primary pull-right" href="{{f.name}}">
+                        <i class="fa fa-download"></i>
+                        Download
+                        <span class="badge badge-downloads">{{f.dl_count}}</span>
+                    </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </body>
 </html>

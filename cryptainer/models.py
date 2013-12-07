@@ -19,7 +19,8 @@ class Folder(models.Model):
         return self.name
 
 class File(models.Model):
-    name = models.CharField(max_length=4)
+    name = models.CharField(max_length=8)
+    dl_count = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
     data = models.FileField(upload_to=getPath)
     folder = models.ForeignKey('Folder')

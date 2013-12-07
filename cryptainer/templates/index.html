@@ -2,25 +2,35 @@
   <head>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   </head>
   <body>
-    <div class="container" style="width:500px">
-      <div style="margin-top:30px" class="panel panel-default">
-        <div class="panel-heading"><h4>{{user}}'s Folders</h4></div>
-        <ul class="list-group">
-          {% for f in folders %}
-          <li class="list-group-item clearfix">
-            <span>{{f.name}}</span>
-            {% if f.is_public %}
-              <span class="label label-default">Public</span>
-            {% else %}
-              <span class="label label-success">Private</span>
-            {% endif %}
-            <a class="btn btn-primary pull-right" href="{{f.name}}">Show</a>
-          </li>
-          {% endfor %}
-        </ul>
+      <div class="container" style="width:500px">
+          <div style="margin-top:30px" class="panel panel-default">
+              <div class="panel-heading">
+                  <h4>
+                      <i class="fa fa-cloud"></i>
+                      {{user}}'s Folders
+                  </h4>
+              </div>
+              <ul class="list-group">
+                  {% for f in folders %}
+                  <li class="list-group-item clearfix">
+                  <i class="fa fa-folder"></i>
+                  <span>{{f.name}}</span>
+                  {% if f.is_public %}
+                  <span class="label label-default">Public</span>
+                  {% else %}
+                  <span class="label label-success">Private</span>
+                  {% endif %}
+                  <a class="btn btn-primary pull-right" href="{{f.name}}">
+                      <i class="fa fa-rocket"></i>
+                      Show
+                  </a>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
       </div>
-    </div>
   </body>
 </html>

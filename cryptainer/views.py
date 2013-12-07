@@ -47,9 +47,8 @@ def upload(request):
         if user is not None:
             if user.is_active:
                 data = request.FILES['file']
-                folder = Folder(author=user, name=generateHash(8), is_public=True)
-                folder.save()
-                f = File(name=generateHash(4), folder=folder, data=data)
+                folder = Folder.objects.get(name='temp')
+                f = File(name=generateHash(8), folder=folder, data=data)
                 f.save()
                 resp = 'Successfully uploaded %s to http://files.doebi.at/%s/%s.' %(data.name, folder.name, f.name)
             else:
@@ -142,11 +141,13 @@ def get(request, folder, name):
         folder = Folder.objects.get(name=folder)
     except Folder.DoesNotExist:
         raise Http404
-    if request.user.is_authenticated() or folder.is_public:
+    if request.user.is_authenticated() or folder.is_public or folder.name == 'temp':
         try:
             f = File.objects.get(folder=folder, name=name)
         except File.DoesNotExist:
             raise Http404
+        f.dl_count = f.dl_count + 1
+        f.save()
         filename = os.path.basename(unicode(f.data)).replace(' ', '_')
         temp = filename.split('.')
         dtype = datatypes.get(temp[-1])
