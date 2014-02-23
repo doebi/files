@@ -15,8 +15,8 @@ features
  * pastebin mode
 
 
- puppy
- -----
+puppy
+-----
 
  **pup.py** is a python script for fast adding files to your files-server
  usage: `pup <filename>`
@@ -26,14 +26,11 @@ features
  * returns the full url on commandline
 
  example:
- ```
- doebi@doebian:~
- > pup screenshot.png 
- Successfully uploaded screenshot.png to http://files.doebi.at/temp/WQN2qHUg.
- ```
+> pup screenshot.png 
+> Successfully uploaded screenshot.png to http://files.doebi.at/temp/WQN2qHUg.
 
- pastebin mode
- -------------
+pastebin mode
+-------------
 
  for simple and fast text and sourcecode exchange you can use **pin**
 
@@ -41,8 +38,5 @@ features
  * uploads files using **pup**
 
  example:
- ```
-doebi@doebian:~
 > pin snippet.text 
-Successfully uploaded snippet.text.html to http://files.doebi.at/temp/8qDcZwsH.
- ```
+> Successfully uploaded snippet.text.html to http://files.doebi.at/temp/8qDcZwsH.
