@@ -26,11 +26,11 @@ features
  * returns the full url on commandline
 
  example:
- `
+ ```
  doebi@doebian:~
  > pup screenshot.png 
  Successfully uploaded screenshot.png to http://files.doebi.at/temp/WQN2qHUg.
- `
+ ```
 
  pastebin mode
  -------------
@@ -41,8 +41,8 @@ features
  * uploads files using **pup**
 
  example:
- `
+ ```
 doebi@doebian:~
 > pin snippet.text 
 Successfully uploaded snippet.text.html to http://files.doebi.at/temp/8qDcZwsH.
- `
+ ```
