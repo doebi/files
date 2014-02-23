@@ -1,7 +1,7 @@
 import os
 import random
 import Image
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
@@ -12,6 +12,7 @@ datatypes = {
         'pdf': 'application/pdf',
         'jpg': 'image/jpeg',
         'jpeg': 'image/jpeg',
+        'png': 'image/png',
         'js': 'application/x-javascript',
         'json': 'application/json',
         'jar': 'application/java-archive',
@@ -23,6 +24,8 @@ datatypes = {
         'bz': 'application/x-bzip',
         'bz2': 'application/x-bzip2',
         'mp4': 'video/mpeg4',
+        'html': 'text/html',
+        'htm': 'text/html',
         }
 
 def generateHash(n):
@@ -37,7 +40,7 @@ def index(request):
         folders = Folder.objects.filter(author=request.user)
         return render_to_response('index.html', {'user': request.user, 'folders': folders})
     else:
-        raise PermissionDenied
+        return HttpResponseRedirect('https://github.com/doebi/files')
 
 
 def upload(request):
@@ -154,7 +157,8 @@ def get(request, folder, name):
         if dtype is None:
             dtype = 'text/plain'
         response = HttpResponse(f.data, content_type=dtype)
-        response['Content-Disposition'] = "attachment; filename=%s" %filename
+        if dtype not in ['text/html', 'image/png', 'image/jpeg']:
+            response['Content-Disposition'] = "attachment; filename=%s" %filename
         return response
     else:
         raise PermissionDenied
