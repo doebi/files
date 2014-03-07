@@ -9,8 +9,9 @@ features
 --------
 
  * simple clean interface
- * fast way to download files
+ * fast way to share files
  * organize files into folders
+ * md-files are rendered to proper HTML
  * client script for easily adding temporary files
  * pastebin mode
 
@@ -40,3 +41,9 @@ pastebin mode
  example:
 > pin snippet.text 
 > Successfully uploaded snippet.text.html to http://files.doebi.at/temp/8qDcZwsH.
+
+planned features
+----------------
+
+ * automatically delete temporary files after a certain time
+ * secure upload for client puppy
