@@ -1,6 +1,7 @@
 import os
 import random
 import Image
+import markdown
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.core.context_processors import csrf
@@ -26,6 +27,7 @@ datatypes = {
         'mp4': 'video/mpeg4',
         'html': 'text/html',
         'htm': 'text/html',
+        'md': 'text/x-markdown',
         }
 
 def generateHash(n):
@@ -154,11 +156,16 @@ def get(request, folder, name):
         filename = os.path.basename(unicode(f.data)).replace(' ', '_')
         temp = filename.split('.')
         dtype = datatypes.get(temp[-1])
-        if dtype is None:
-            dtype = 'text/plain'
-        response = HttpResponse(f.data, content_type=dtype)
-        if dtype not in ['text/html', 'image/png', 'image/jpeg']:
-            response['Content-Disposition'] = "attachment; filename=%s" %filename
+        data = f.data
+        if dtype == 'text/x-markdown':
+            data = markdown.markdown(f.data.read().decode('utf-8')).encode('utf-8')
+            response = render_to_response('markdown.html', {'data': data})
+        else:
+            if dtype is None:
+                dtype = 'text/plain'
+            response = HttpResponse(data, content_type=dtype)
+            if dtype not in ['text/html', 'image/png', 'image/jpeg']:
+                response['Content-Disposition'] = "attachment; filename=%s" %filename
         return response
     else:
         raise PermissionDenied
