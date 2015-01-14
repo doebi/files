@@ -1,12 +1,10 @@
 files.doebi.at
 ==============
 
-this is the sourcecode of files.doebi.at
-
+this is the sourcecode for files.doebi.at
 a simple file management platform i needed to distribute files to the public
 
-features
---------
+## features
 
  * simple clean interface
  * fast way to share files
@@ -15,9 +13,17 @@ features
  * client script for easily adding temporary files
  * pastebin mode
 
+## workflow
 
-puppy
------
+![workflow](http://files.doebi.at/temp/ALJ9DaWg)
+
+1. [Sender] Upload a file using either a web based client the commandline client
+2. [Server] Store File on Fileserver and report back the unique url
+3. [Sender] Share the url
+4. [Receiver] Dowload file
+
+
+## puppy (commandline client)
 
  **pup.py** is a python script for fast adding files to your files-server
  usage: `pup <filename>`
@@ -27,11 +33,12 @@ puppy
  * returns the full url on commandline
 
  example:
-> pup screenshot.png 
+ 
+> pup screenshot.png
+
 > Successfully uploaded screenshot.png to http://files.doebi.at/temp/WQN2qHUg.
 
-pastebin mode
--------------
+## pastebin mode
 
  for simple and fast text and sourcecode exchange you can use **pin**
 
@@ -39,11 +46,17 @@ pastebin mode
  * uploads files using **pup**
 
  example:
-> pin snippet.text 
+ 
+> pin snippet.text
+
 > Successfully uploaded snippet.text.html to http://files.doebi.at/temp/8qDcZwsH.
 
-planned features
-----------------
+## planned features
 
  * automatically delete temporary files after a certain time
- * secure upload for client puppy
+ * security (E2E)
+
+## security
+
+Unfortunately, as of now there is no security at all.
+But with the current architecture it can easily be added anytime, asuming key exchange has already happened elsewhere.
